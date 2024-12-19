@@ -1,14 +1,7 @@
 <?php
-// Incluir o arquivo de conexão com o banco de dados
 include("./config/database/db_conn.php");
-
-// Passo 1: Chamar a stored procedure
-$sql = "CALL sp_select_login_info_empresa()"; // Chama a stored procedure
-
-// Usando o PDO para executar a consulta
+$sql = "CALL sp_select_login_info_empresa()";
 $stmt = $conn->query($sql);
-
-// Passo 2: Verificar se a consulta retornou resultados e popular o <select>
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +18,7 @@ $stmt = $conn->query($sql);
         <label for="empresa">Escolha uma empresa:</label>
         <select name="empresa" id="empresa">
             <?php
-            // Verificar se a consulta retornou resultados e gerar as opções
             if ($stmt->rowCount() > 0) {
-                // Iterar sobre os resultados e gerar as opções
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo '<option value="' . $row['codigo'] . '">' . $row['nome_fantasia'] . ' (' . $row['razao_social'] . ')</option>';
                 }
