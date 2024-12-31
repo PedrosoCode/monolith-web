@@ -22,11 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $loginClass = new Login($conn);
 
         $response = $loginClass->validateLogin($codigoEmpresa, $usuario, $senha);
-
+        // var_dump($response);
         if ($response['status'] === 'success') {
             // Define as variáveis de sessão
-            $_SESSION['usuario'] = $usuario;
-            $_SESSION['empresa'] = $codigoEmpresa;
+            $_SESSION['usuario'] = $usuario;  // Salva o nome de usuário
+            $_SESSION['empresa'] = $codigoEmpresa;  // Salva o código da empresa
+            $_SESSION['nome_usuario'] = $response['nome_usuario'];  // Salva o nome do usuário
 
             // Redireciona para a página inicial ou dashboard
             header('Location: home.php');

@@ -14,12 +14,17 @@ class Login {
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':codigo_empresa', $codigoEmpresa, PDO::PARAM_INT);
             $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
-
+    
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    
             if ($result && password_verify($senha, $result['senha'])) {
-                return ['status' => 'success', 'message' => 'Login realizado com sucesso!'];
+                return [
+                    'status' => 'success',
+                    'message' => 'Login realizado com sucesso!',
+                    'nome_usuario' => $usuario,  
+                    'codigo_empresa' => $codigoEmpresa
+                ];
             } else {
                 return ['status' => 'error', 'message' => 'Credenciais inválidas.'];
             }
