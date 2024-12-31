@@ -1,16 +1,6 @@
 <?php
-session_start();
-
-// Verifica se a sessão está iniciada e se as variáveis de sessão existem
-if (!isset($_SESSION['usuario']) || !isset($_SESSION['empresa']) || !isset($_SESSION['nome_usuario'])) {
-    // Se não estiver logado, redireciona para a página de login
-    header('Location: index.php');
-    exit();
-}
-
-// Pega o nome do usuário e o código da empresa da sessão
-$nomeUsuario = $_SESSION['nome_usuario'];
-$codigoEmpresa = $_SESSION['empresa'];
+require_once("./includes/verificar_sessao.php");
+require_once("./includes/components/mainNavbar.php");
 ?>
 
 <!DOCTYPE html>
@@ -20,58 +10,27 @@ $codigoEmpresa = $_SESSION['empresa'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: auto;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .welcome-message {
-            font-size: 18px;
-            margin-top: 20px;
-        }
-
-        .logout-button {
-            display: block;
-            margin-top: 30px;
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .logout-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <!-- Adicionando o link para o Bootstrap -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="container">
-        <h1>Bem-vindo ao Sistema!</h1>
-        <p class="welcome-message">Olá, <?= htmlspecialchars($nomeUsuario); ?>! Você está logado com a empresa de código: <?= htmlspecialchars($codigoEmpresa); ?>.</p>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card p-4" style="width: 600px;">
+            <h1 class="text-center mb-4">Bem-vindo ao Sistema!</h1>
 
-        <a href="logout.php" class="logout-button">Sair</a>
+            <p class="lead text-center">
+                Olá, <?= htmlspecialchars($nomeUsuario); ?>! Você está logado com a empresa de código: <?= htmlspecialchars($codigoEmpresa); ?>.
+            </p>
+
+            <div class="d-flex justify-content-center mt-4">
+                <a href="logout.php" class="btn btn-danger">Sair</a>
+            </div>
+        </div>
     </div>
+
+    <!-- Adicionando o script do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

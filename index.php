@@ -40,87 +40,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: auto;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-        }
-    </style>
+    <!-- Adicionando o link para o Bootstrap -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1 style="text-align: center;">Sistema de Login</h1>
+<body class="bg-light">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card p-4" style="width: 400px;">
+            <h1 class="text-center mb-4">Sistema de Login</h1>
 
-    <?php if (!empty($errorMessage)) : ?>
-        <p class="error"><?= htmlspecialchars($errorMessage); ?></p>
-    <?php endif; ?>
+            <?php if (!empty($errorMessage)) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= htmlspecialchars($errorMessage); ?>
+                </div>
+            <?php endif; ?>
 
-    <form action="" method="POST">
-        <label for="empresa">Escolha uma empresa:</label>
-        <select name="empresa" id="empresa" required>
-            <?php
-            if (!empty($empresas)) {
-                foreach ($empresas as $empresa) {
-                    echo '<option value="' . htmlspecialchars($empresa['codigo']) . '">' .
-                        htmlspecialchars($empresa['nome_fantasia']) .
-                        ' (' . htmlspecialchars($empresa['razao_social']) . ')</option>';
-                }
-            } else {
-                echo '<option value="">Nenhuma empresa encontrada</option>';
-            }
-            ?>
-        </select>
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="empresa" class="form-label">Escolha uma empresa:</label>
+                    <select name="empresa" id="empresa" class="form-select" required>
+                        <?php
+                        if (!empty($empresas)) {
+                            foreach ($empresas as $empresa) {
+                                echo '<option value="' . htmlspecialchars($empresa['codigo']) . '">' . 
+                                    htmlspecialchars($empresa['nome_fantasia']) . 
+                                    ' (' . htmlspecialchars($empresa['razao_social']) . ')</option>';
+                            }
+                        } else {
+                            echo '<option value="">Nenhuma empresa encontrada</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
 
-        <label for="usuario">Usuário:</label>
-        <input type="text" id="usuario" name="usuario" required placeholder="Digite seu usuário">
+                <div class="mb-3">
+                    <label for="usuario" class="form-label">Usuário:</label>
+                    <input type="text" id="usuario" name="usuario" class="form-control" required placeholder="Digite seu usuário">
+                </div>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha:</label>
+                    <input type="password" id="senha" name="senha" class="form-control" required placeholder="Digite sua senha">
+                </div>
 
-        <input type="submit" value="Login">
-    </form>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Adicionando o script do Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
