@@ -1,7 +1,14 @@
 <?php
-include("./config/database/db_conn.php");
-$sql = "CALL sp_select_login_info_empresa()";
-$stmt = $conn->query($sql);
+require_once __DIR__ . '/config/Database.php';
+require_once './funcs/Empresas.php';
+
+// Cria a instância da classe Database e obtém a conexão
+$db = new Database();
+$conn = $db->getConnection();
+
+// Cria a instância da classe Empresas e obtém as empresas
+$empresasClass = new Empresas($conn);
+$empresas = $empresasClass->getEmpresas();
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +25,9 @@ $stmt = $conn->query($sql);
         <label for="empresa">Escolha uma empresa:</label>
         <select name="empresa" id="empresa">
             <?php
-            if ($stmt->rowCount() > 0) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<option value="' . $row['codigo'] . '">' . $row['nome_fantasia'] . ' (' . $row['razao_social'] . ')</option>';
+            if (!empty($empresas)) {
+                foreach ($empresas as $empresa) {
+                    echo '<option value="' . $empresa['codigo'] . '">' . $empresa['nome_fantasia'] . ' (' . $empresa['razao_social'] . ')</option>';
                 }
             } else {
                 echo '<option value="">Nenhuma empresa encontrada</option>';
@@ -40,6 +47,3 @@ $stmt = $conn->query($sql);
 </body>
 
 </html>
-
-<?php
-?>
