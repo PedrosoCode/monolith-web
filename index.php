@@ -3,6 +3,7 @@ session_start(); // Inicia a sessão
 
 require_once __DIR__ . '/config/Database.php';
 require_once './funcs/Empresas.php';
+require_once './LoginHandler.php'; // Inclui o arquivo de manipulação do login
 
 // Cria a instância da classe Database e obtém a conexão
 $db = new Database();
@@ -13,30 +14,21 @@ $empresasClass = new Empresas($conn);
 $empresas = $empresasClass->getEmpresas();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $codigoEmpresa = isset($_POST['empresa']) ? intval($_POST['empresa']) : null;
-    $usuario = isset($_POST['usuario']) ? $_POST['usuario'] : null;
-    $senha = isset($_POST['senha']) ? $_POST['senha'] : null;
+    // Chama a função handleLogin para processar o login
+    $response = handleLogin($conn);
 
-    if ($codigoEmpresa && $usuario && $senha) {
-        require_once './funcs/Login.php';
-        $loginClass = new Login($conn);
+    // Verifica o status da resposta e executa o redirecionamento ou exibe mensagem de erro
+    if ($response['status'] === 'success') {
+        // Define as variáveis de sessão
+        $_SESSION['usuario'] = $_POST['usuario'];  // Salva o nome de usuário
+        $_SESSION['empresa'] = $_POST['empresa'];  // Salva o código da empresa
+        $_SESSION['nome_usuario'] = $response['nome_usuario'];  // Salva o nome do usuário
 
-        $response = $loginClass->validateLogin($codigoEmpresa, $usuario, $senha);
-        // var_dump($response);
-        if ($response['status'] === 'success') {
-            // Define as variáveis de sessão
-            $_SESSION['usuario'] = $usuario;  // Salva o nome de usuário
-            $_SESSION['empresa'] = $codigoEmpresa;  // Salva o código da empresa
-            $_SESSION['nome_usuario'] = $response['nome_usuario'];  // Salva o nome do usuário
-
-            // Redireciona para a página inicial ou dashboard
-            header('Location: home.php');
-            exit();
-        } else {
-            $errorMessage = $response['message'];
-        }
+        // Redireciona para a página inicial ou dashboard
+        header('Location: home.php');
+        exit();
     } else {
-        $errorMessage = 'Por favor, preencha todos os campos.';
+        $errorMessage = $response['message'];
     }
 }
 ?>
