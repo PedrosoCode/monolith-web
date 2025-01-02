@@ -18,5 +18,19 @@ class clsParceiroNegocio {
             return [];
         }
     }
+    public function excluirParceiro($codigo, $codigo_empresa) {
+        try {
+            $sql = "CALL sp_delete_parceiro_negocio(:codigo, :codigo_empresa)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
+            $stmt->bindParam(':codigo_empresa', $codigo_empresa, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Erro ao excluir parceiro: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }
 ?>
