@@ -20,7 +20,7 @@
             Dropdown link
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="/monolithweb/pages/listaParceiroNegocio.php">Parceiros</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
@@ -29,3 +29,4 @@
     </div>
   </div>
 </nav>
+<script src="bootstrap\js\bootstrap.bundle.min.js"></script>
