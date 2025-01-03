@@ -19,14 +19,17 @@ $parceiros = $parceirosClass->getParceiros();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial</title>
+    <title>Listagem de parceiros</title>
     <!-- Adicionando o link para o Bootstrap -->
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
 
-<table class="table table-sm">
+
+
+<div class="container mt-4">
+<table class="table table-sm table-striped">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -66,7 +69,7 @@ $parceiros = $parceirosClass->getParceiros();
         ?>
     </tbody>
 </table>
-
+</div>
 
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
