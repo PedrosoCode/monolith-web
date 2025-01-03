@@ -48,7 +48,7 @@ $parceiros = $parceirosClass->getParceiros();
                 echo '<td>' . htmlspecialchars($parceiro['nome_fantasia']) . '</td>';
                 echo '<td>';
                 // Botão Editar
-                echo '<form action="editarParceiro.php" method="GET" style="display:inline;">';
+                echo '<form action="/monolithweb/pages/editarParceiroNegocio.php" style="display:inline;">';
                 echo '<input type="hidden" name="codigo" value="' . htmlspecialchars($parceiro['codigo']) . '">';
                 echo '<input type="hidden" name="codigo_empresa" value="' . htmlspecialchars($parceiro['codigo_empresa']) . '">';
                 echo '<button type="submit" class="btn btn-sm btn-warning">Editar</button>';

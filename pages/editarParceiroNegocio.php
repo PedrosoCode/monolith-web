@@ -9,6 +9,21 @@ $conn = $db->getConnection();
 
 $parceirosClass = new clsParceiroNegocio($conn);
 
+
+if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
+    $codigo = $_GET['codigo'];
+    $codigo_empresa = $_GET['codigo_empresa'];
+
+} else {
+    // echo "Parâmetros não recebidos corretamente.";
+
+    $codigo = 0;
+    $codigo_empresa = $_SESSION['empresa'];
+
+    // echo $codigo . $_SESSION['empresa'];
+}
+
+
 ?>
 
 
@@ -29,19 +44,21 @@ $parceirosClass = new clsParceiroNegocio($conn);
 
     <!-- <div class="container md-5 border border-dark-subtle rounded"  > -->
     <div class="container md-5">
-        <form>
+        <form action = '/monolithweb/funcs/class/fnUpsertParceiro.php'>
+        <input type="hidden" name="codigo" value="<?php echo $codigo; ?>">
+        <input type="hidden" name="codigo_empresa" value="<?php echo $codigo_empresa; ?>">
         <div class="row">
             <div class="col-md-5">
                 <label for="" class="form-label">Nome Fantasia</label>
-                <input type="text" class="form-control" id="" placeholder="Nome fantasia" required>
+                <input type="text" class="form-control" id="" placeholder="Nome fantasia" required name="sNome_fantasia">
             </div>
             <div class="col-md-5">
                 <label for="" class="form-label">Razão Social</label>
-                <input type="text" class="form-control" id="" placeholder="Razão Social" required>
+                <input type="text" class="form-control" id="" placeholder="Razão Social" required name="sRazao_social">
             </div>
             <div class="col-md-2">
-                <label for="inputCaractere" class="form-label">Tipo Parceiro</label>
-                <select id="" class="form-select">
+                <label for="" class="form-label">Tipo Parceiro</label>
+                <select id="" class="form-select" name="sTipo_parceiro">
                     <option selected>Choose...</option>
                     <option>...</option>
                 </select>
@@ -50,69 +67,69 @@ $parceirosClass = new clsParceiroNegocio($conn);
         <div class="row">
             <div class="col-md-4">
                 <label for="" class="form-label">Documento</label>
-                <input type="text" class="form-control" id="" placeholder="Nome fantasia" required>
+                <input type="text" class="form-control" id="" placeholder="Nome fantasia" name="sDocumento" required>
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">E-Mail</label>
-                <input type="email" class="form-control" id="" placeholder="Nome fantasia">
+                <input type="email" class="form-control" id="" placeholder="E-Mail" name="sEmail">
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Telefone</label>
-                <input type="text" class="form-control" id="" placeholder="Telefone">
+                <input type="text" class="form-control" id="" placeholder="Telefone" name="sTelefone">
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <label for="" class="form-label">Bairro</label>
-                <input type="text" class="form-control" id="" placeholder="Bairro">
+                <input type="text" class="form-control" id="" placeholder="Bairro" name="sBairro">
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Logradouro</label>
-                <input type="text" class="form-control" id="" placeholder="Logradouro">
+                <input type="text" class="form-control" id="" placeholder="Logradouro" name="sLogradouro">
             </div>
             <div class="col-md-1">
                 <label for="" class="form-label">N°</label>
-                <input type="text" class="form-control" id="" placeholder="N°">
+                <input type="text" class="form-control" id="" placeholder="N°" name="sNumero">
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Complemento</label>
-                <input type="text" class="form-control" id="" placeholder="Complemento">
+                <input type="text" class="form-control" id="" placeholder="Complemento" name="sComplemento">
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <label for="" class="form-label">Cidade</label>
-                <select id="" class="form-select">
+                <select id="" class="form-select" name="iCodigo_cidade">
                     <option selected>Choose...</option>
                     <option>...</option>
                 </select>
             </div>
             <div class="col-md-4">
                 <label for="" class="form-label">Estado</label>
-                <select id="" class="form-select">
+                <select id="" class="form-select" name="iCodigoEstado">
                     <option selected>Choose...</option>
                     <option>...</option>
                 </select>
             </div>
             <div class="col-md-2">
                 <label for="" class="form-label">CEP</label>
-                <input type="text" class="form-control" id="">
+                <input type="text" class="form-control" id="" name="sCep">
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <label for="" class="form-label">Focal Point</label>
-                <input type="text" class="form-control" id="" placeholder="Contato">
+                <input type="text" class="form-control" id="" placeholder="Contato" name="sFocal_point">
             </div>
         </div>
         <div class="row">
             <div class="col-md-2">
                 <label for="">Data Cadastro</label>
-                <input id="" type="datetime-local" name="" />
+                <input id="" type="datetime-local" name="dtpData_cadastro" />
             </div>
             <div class="col-md-2">
                 <label for="">Data Ultima Alteração</label>
-                <input id="" type="datetime-local" name="" />
+                <input id="" type="datetime-local" name="dtpData_ultima_alteracao" />
             </div>
         </div>
         <button type="submit" class="btn btn-success mt-3">Salvar!</button>
