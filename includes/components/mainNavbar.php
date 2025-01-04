@@ -1,3 +1,4 @@
+<link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -20,7 +21,7 @@
             Dropdown link
           </a>
           <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="../../pages//listaParceiroNegocio.php">Parceiros</a></li>
+          <li><a class="dropdown-item" href="../../pages/listaParceiroNegocio.php">Parceiros</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
@@ -29,4 +30,4 @@
     </div>
   </div>
 </nav>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
