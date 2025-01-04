@@ -21,7 +21,7 @@ $parceiros = $parceirosClass->getParceiros();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem de parceiros</title>
     <!-- Adicionando o link para o Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -48,7 +48,7 @@ $parceiros = $parceirosClass->getParceiros();
                 echo '<td>' . htmlspecialchars($parceiro['nome_fantasia']) . '</td>';
                 echo '<td>';
                 // Botão Editar
-                echo '<form action="/monolithweb/pages/editarParceiroNegocio.php" style="display:inline;">';
+                echo '<form action="/pages/editarParceiroNegocio.php" style="display:inline;">';
                 echo '<input type="hidden" name="codigo" value="' . htmlspecialchars($parceiro['codigo']) . '">';
                 echo '<input type="hidden" name="codigo_empresa" value="' . htmlspecialchars($parceiro['codigo_empresa']) . '">';
                 echo '<button type="submit" class="btn btn-sm btn-warning">Editar</button>';
@@ -106,7 +106,7 @@ confirmModal.addEventListener('show.bs.modal', function (event) {
     
     // Atualizando o link de confirmação para incluir os parâmetros
     var confirmDeleteButton = document.getElementById('confirmDelete');
-    confirmDeleteButton.href = '/monolithweb/funcs/class/fnExcluirParceiro.php?codigo=' + codigo + '&codigo_empresa=' + codigo_empresa;
+    confirmDeleteButton.href = '/funcs/class/fnExcluirParceiro.php?codigo=' + codigo + '&codigo_empresa=' + codigo_empresa;
 });
 
 </script>
@@ -114,7 +114,7 @@ confirmModal.addEventListener('show.bs.modal', function (event) {
 
 
 
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/bootstrap/css/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -63,8 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         if (!empty($empresas)) {
                             foreach ($empresas as $empresa) {
                                 echo '<option value="' . htmlspecialchars($empresa['codigo']) . '">' . 
-                                    htmlspecialchars($empresa['nome_fantasia']) . 
-                                    ' (' . htmlspecialchars($empresa['razao_social']) . ')</option>';
+                                    htmlspecialchars($empresa['nome_fantasia']) . ' (' . htmlspecialchars($empresa['razao_social']) . ')</option>';
                             }
                         } else {
                             echo '<option value="">Nenhuma empresa encontrada</option>';

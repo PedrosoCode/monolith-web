@@ -17,7 +17,7 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
     $excluido = $parceiroClass->excluirParceiro($codigo, $codigo_empresa);
 
     if ($excluido) {
-        header("Location: /monolithweb/pages/listaParceiroNegocio.php"); // Redireciona de volta para a lista
+        header("Location: /../../../pages/listaParceiroNegocio.php"); // Redireciona de volta para a lista
         exit();
     } else {
         echo "Erro ao excluir o parceiro.";

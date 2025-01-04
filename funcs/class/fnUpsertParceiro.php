@@ -35,13 +35,13 @@ try {
             // Gerar o script para mostrar o pop-up e redirecionar após
             echo "<script type='text/javascript'>
                     alert('Parceiro inserido com sucesso!');
-                    window.location.href = '/monolithweb/pages/listaParceiroNegocio.php';
+                    window.location.href = '/../pages/listaParceiroNegocio.php';
                   </script>";
             exit();  // Interrompe a execução para que o script JavaScript seja executado
         } else {
             echo "<script type='text/javascript'>
                     alert('Erro ao inserir Parceiro!');
-                    window.location.href = '/monolithweb/pages/listaParceiroNegocio.php';
+                    window.location.href = '/../pages/listaParceiroNegocio.php';
                   </script>";
             exit();
         }
@@ -53,13 +53,13 @@ try {
             // Gerar o script para mostrar o pop-up e redirecionar após
             echo "<script type='text/javascript'>
                     alert('Parceiro atualizado com sucesso!');
-                    window.location.href = '/monolithweb/pages/listaParceiroNegocio.php';
+                    window.location.href = '/../pages/listaParceiroNegocio.php';
                   </script>";
             exit();  // Interrompe a execução para que o script JavaScript seja executado
         } else {
             echo "<script type='text/javascript'>
                     alert('Erro ao atualizar Parceiro!');
-                    window.location.href = '/monolithweb/pages/listaParceiroNegocio.php';
+                    window.location.href = '/../pages/listaParceiroNegocio.php';
                   </script>";
             exit();
         }
@@ -68,7 +68,7 @@ try {
 } catch (Exception $e) {
     echo "<script type='text/javascript'>
             alert('Ocorreu um erro: " . $e->getMessage() . "');
-            window.location.href = '/monolithweb/pages/listaParceiroNegocio.php';
+            window.location.href = '/../pages/listaParceiroNegocio.php';
           </script>";
     exit();
 }
