@@ -61,5 +61,27 @@ class clsParceiroNegocio {
         }
     }
 
+    public function carregaDadosParceiroPorID($iCodigo, $iCodigo_empresa) {
+        try {
+            $sql = "CALL sp_select_dados_parceiro_negocio(:codigo_parceiro, :codigo_empresa)";
+            $sQuery = $this->conn->prepare($sql);
+            $sQuery->bindParam(':codigo_parceiro', $iCodigo, PDO::PARAM_INT);
+            $sQuery->bindParam(':codigo_empresa', $iCodigo_empresa, PDO::PARAM_INT);
+            $sQuery->execute();
+    
+            $result = $sQuery->fetch(PDO::FETCH_ASSOC);
+    
+            if ($result) {
+                return $result; 
+            } else {
+                return [];
+            }
+        } catch (PDOException $e) {
+            echo "Erro ao carregar dados do parceiro de negócio: " . $e->getMessage();
+            return false; 
+        }
+    }
+    
+
 }
 ?>

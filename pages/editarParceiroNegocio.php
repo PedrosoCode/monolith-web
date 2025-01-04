@@ -1,14 +1,83 @@
 <?php
 require_once("../includes/verificar_sessao.php");
 require_once("../includes/components/mainNavbar.php");
+
+if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
+    $codigo = $_GET['codigo'];
+    $codigo_empresa = $_GET['codigo_empresa'];
+} else {
+    $codigo = 0;
+    $codigo_empresa = $_SESSION['empresa'];
+}
+
 ?>
 
 <script>
+    const urlParams = new URLSearchParams(window.location.search);
+
     document.addEventListener('DOMContentLoaded', function() {
         preencherComboEstado();
         CarregarCidades();
         preencherComboTipoParceiro();
+
+        if (urlParams.has('codigo') && urlParams.has('codigo_empresa')) {
+            const iCodigo = urlParams.get('codigo');
+            const iCodigoEmpresa = urlParams.get('codigo_empresa');
+
+            console.log('Código:', iCodigo);
+            console.log('Código Empresa:', iCodigoEmpresa);
+
+            CarregarDados(iCodigo, iCodigoEmpresa);
+
+        } else {
+            console.log('Os parâmetros "codigo" ou "codigo_empresa" não estão presentes na URL.');
+        }
+
     });
+
+    function CarregarDados(iCodigo, iCodigoEmpresa) {
+        console.log("Função chamada preencherComboTipoParceiro");
+        const comboSelect = document.getElementById('comboTipoParceiro');
+
+        fetch('../funcs/class/carregarDadosParceiro.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    iCodigo: iCodigo,
+                    iCodigoEmpresa: iCodigoEmpresa
+                })
+            })
+
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na resposta da requisição');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); 
+
+                if (data) {
+                    const nomeInput = document.getElementById('nome');
+                    if (nomeInput) {
+                        nomeInput.value = data.nome;
+                    }
+
+                    const txtNomeFantasia = document.getElementById('txtNomeFantasia');
+                    if (txtNomeFantasia) {
+                        txtNomeFantasia.value = data.nome_fantasia_parceiro || '';
+                    }
+
+                } else {
+                    console.error("Dados não encontrados ou formato inesperado.");
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao coletar informações:', error);
+            });
+    };
 
     function preencherComboTipoParceiro() {
         console.log("Função chamada preencherComboTipoParceiro");
@@ -186,7 +255,7 @@ require_once("../includes/components/mainNavbar.php");
             <div class="row">
                 <div class="col-md-5">
                     <label for="" class="form-label">Nome Fantasia</label>
-                    <input type="text" class="form-control" id="" placeholder="Nome fantasia" required name="sNome_fantasia" value="<?php echo htmlspecialchars($codigo_empresa); ?>">
+                    <input type="text" class="form-control" id="txtNomeFantasia" placeholder="Nome fantasia" required name="sNome_fantasia" value="<?php echo htmlspecialchars($codigo_empresa); ?>">
                 </div>
                 <div class="col-md-5">
                     <label for="" class="form-label">Razão Social</label>
