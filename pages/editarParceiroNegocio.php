@@ -63,11 +63,76 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                     const nomeInput = document.getElementById('nome');
                     if (nomeInput) {
                         nomeInput.value = data.nome;
-                    }
+                    } 
 
                     const txtNomeFantasia = document.getElementById('txtNomeFantasia');
                     if (txtNomeFantasia) {
                         txtNomeFantasia.value = data.nome_fantasia_parceiro || '';
+                    } 
+
+                    const txtRazaoSocial = document.getElementById('txtRazaoSocial');
+                    if (txtRazaoSocial) {
+                        txtRazaoSocial.value = data.razao_social_parceiro || '';
+                    }
+
+                    const txtDocumento = document.getElementById('txtDocumento');
+                    if (txtDocumento) {
+                        txtDocumento.value = data.documento_parceiro || '';
+                    } 
+
+                    const txtCEP = document.getElementById('txtCEP');
+                    if (txtCEP) {
+                        txtCEP.value = data.cep_parceiro || '';
+                    } 
+
+                    const txtEmail = document.getElementById('txtEmail');
+                    if (txtEmail) {
+                        txtEmail.value = data.email_parceiro || '';
+                    }
+
+                    const txtTelefone = document.getElementById('txtTelefone');
+                    if (txtTelefone) {
+                        txtTelefone.value = data.telefone_parceiro || '';
+                    }
+
+                    const txtBairro = document.getElementById('txtBairro');
+                    if (txtBairro) {
+                        txtBairro.value = data.bairro_parceiro || '';
+                    } 
+
+                    const txtLogradouro = document.getElementById('txtLogradouro');
+                    if (txtLogradouro) {
+                        txtLogradouro.value = data.logradouro_parceiro || '';
+                    } 
+
+                    const txtNumero = document.getElementById('txtNumero');
+                    if (txtNumero) {
+                        txtNumero.value = data.numero_parceiro || '';
+                    }  
+
+                    const txtComplemento = document.getElementById('txtComplemento');
+                    if (txtComplemento) {
+                        txtComplemento.value = data.complemento_parceiro || '';
+                    } 
+
+                    const txtContato = document.getElementById('txtContato');
+                    if (txtContato) {
+                        txtContato.value = data.contato_parceiro || '';
+                    } 
+
+                    const cidadeCombo = document.getElementById('cidadeCombo');
+                    if (cidadeCombo) {
+                        cidadeCombo.value = data.codigo_cidade_parceiro || '';
+                    }
+
+                    const estadoCombo = document.getElementById('estadoCombo');
+                    if (estadoCombo) {
+                        estadoCombo.value = data.codigo_estado_parceiro || '';
+                    }
+
+                    const comboTipoParceiro = document.getElementById('comboTipoParceiro');
+                    if (comboTipoParceiro) {
+                        comboTipoParceiro.value = data.codigo_tipo_parceiro_parceiro || '';
                     }
 
                 } else {
@@ -259,7 +324,7 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                 </div>
                 <div class="col-md-5">
                     <label for="" class="form-label">Razão Social</label>
-                    <input type="text" class="form-control" id="" placeholder="Razão Social" required name="sRazao_social">
+                    <input type="text" class="form-control" id="txtRazaoSocial" placeholder="Razão Social" required name="sRazao_social">
                 </div>
                 <div class="col-md-2">
                     <label for="" class="form-label">Tipo Parceiro</label>
@@ -271,33 +336,33 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
             <div class="row">
                 <div class="col-md-4">
                     <label for="" class="form-label">Documento</label>
-                    <input type="text" class="form-control" id="" placeholder="Nome fantasia" name="sDocumento" required>
+                    <input type="text" class="form-control" id="txtDocumento" placeholder="Documento" name="sDocumento" required>
                 </div>
                 <div class="col-md-4">
                     <label for="" class="form-label">E-Mail</label>
-                    <input type="email" class="form-control" id="" placeholder="E-Mail" name="sEmail">
+                    <input type="email" class="form-control" id="txtEmail" placeholder="E-Mail" name="sEmail">
                 </div>
                 <div class="col-md-4">
                     <label for="" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="" placeholder="Telefone" name="sTelefone">
+                    <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone" name="sTelefone">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <label for="" class="form-label">Bairro</label>
-                    <input type="text" class="form-control" id="" placeholder="Bairro" name="sBairro">
+                    <input type="text" class="form-control" id="txtBairro" placeholder="Bairro" name="sBairro">
                 </div>
                 <div class="col-md-4">
                     <label for="" class="form-label">Logradouro</label>
-                    <input type="text" class="form-control" id="" placeholder="Logradouro" name="sLogradouro">
+                    <input type="text" class="form-control" id="txtLogradouro" placeholder="Logradouro" name="sLogradouro">
                 </div>
                 <div class="col-md-1">
                     <label for="" class="form-label">N°</label>
-                    <input type="text" class="form-control" id="" placeholder="N°" name="sNumero">
+                    <input type="text" class="form-control" id="txtNumero" placeholder="N°" name="sNumero">
                 </div>
                 <div class="col-md-4">
                     <label for="" class="form-label">Complemento</label>
-                    <input type="text" class="form-control" id="" placeholder="Complemento" name="sComplemento">
+                    <input type="text" class="form-control" id="txtComplemento" placeholder="Complemento" name="sComplemento">
                 </div>
             </div>
             <div class="row">
@@ -318,13 +383,13 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                 </div>
                 <div class="col-md-2">
                     <label for="" class="form-label">CEP</label>
-                    <input type="text" class="form-control" id="" name="sCep">
+                    <input type="text" class="form-control" id="txtCEP" name="sCep" placeholder="CEP">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <label for="" class="form-label">Focal Point</label>
-                    <input type="text" class="form-control" id="" placeholder="Contato" name="sFocal_point">
+                    <input type="text" class="form-control" id="txtContato" placeholder="Contato" name="sFocal_point">
                 </div>
             </div>
             <div class="row">
