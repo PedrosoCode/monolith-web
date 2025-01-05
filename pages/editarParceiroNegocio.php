@@ -12,8 +12,126 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
 
 ?>
 
-<script>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Parceiro</title>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container md-5">
+        <form action='/funcs/class/fnUpsertParceiro.php' id="frmParceiroNegocio">
+            <input type="hidden" name="codigo" value="<?php echo $codigo; ?>">
+            <input type="hidden" name="codigo_empresa" value="<?php echo $codigo_empresa; ?>">
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="" class="form-label">Nome Fantasia</label>
+                    <input type="text" class="form-control" id="txtNomeFantasia" placeholder="Nome fantasia" required name="sNome_fantasia" value="">
+                </div>
+                <div class="col-md-5">
+                    <label for="" class="form-label">Razão Social</label>
+                    <input type="text" class="form-control" id="txtRazaoSocial" placeholder="Razão Social" required name="sRazao_social" value="">
+                </div>
+                <div class="col-md-2">
+                    <label for="" class="form-label">Tipo Parceiro</label>
+                    <select id="comboTipoParceiro" class="form-select" name="sTipo_parceiro">
+                        <option selected></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="" class="form-label">Documento</label>
+                    <input type="text" class="form-control" id="txtDocumento" placeholder="Documento" name="sDocumento" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">E-Mail</label>
+                    <input type="email" class="form-control" id="txtEmail" placeholder="E-Mail" name="sEmail">
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Telefone</label>
+                    <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone" name="sTelefone">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="" class="form-label">Bairro</label>
+                    <input type="text" class="form-control" id="txtBairro" placeholder="Bairro" name="sBairro">
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Logradouro</label>
+                    <input type="text" class="form-control" id="txtLogradouro" placeholder="Logradouro" name="sLogradouro">
+                </div>
+                <div class="col-md-1">
+                    <label for="" class="form-label">N°</label>
+                    <input type="text" class="form-control" id="txtNumero" placeholder="N°" name="sNumero">
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Complemento</label>
+                    <input type="text" class="form-control" id="txtComplemento" placeholder="Complemento" name="sComplemento">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="" class="form-label">Cidade</label>
+                    <select id="cidadeCombo" class="form-select" name="iCodigo_cidade">
+                        <option selected></option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="" class="form-label">Estado</label>
+                    <select id="estadoCombo" class="form-select" name="iCodigoEstado" onchange="atualizarCidades(this.value)">
+                        <option selected></option>
+                    </select>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="" class="form-label">CEP</label>
+                    <input type="text" class="form-control" id="txtCEP" name="sCep" placeholder="CEP">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="" class="form-label">Focal Point</label>
+                    <input type="text" class="form-control" id="txtContato" placeholder="Contato" name="sFocal_point">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="">Data Cadastro</label>
+                    <input id="dtpData_cadastro" type="datetime-local" name="dtpData_cadastro" />
+                </div>
+                <div class="col-md-2">
+                    <label for="">Data Ultima Alteração</label>
+                    <input id="dtpData_ultima_alteracao" type="datetime-local" name="dtpData_ultima_alteracao" readonly />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Salvar!</button>
+
+        </form>
+        <button type="button" class="btn btn-primary mt-3" id="btnNovo">Novo Parceiro</button>
+    </div>
+
+    <script>
+
     const urlParams = new URLSearchParams(window.location.search);
+
+    const btnNovo = document.getElementById('btnNovo');
+    if (btnNovo) {
+                btnNovo.addEventListener('click', function() {
+                    // Resetando o formulário, o que limpa todos os campos
+                    frmParceiroNegocio.reset();
+                });
+            } else {
+                console.log('O botão btnNovo não foi encontrado no DOM!');
+            }
 
     document.addEventListener('DOMContentLoaded', function() {
         preencherComboEstado();
@@ -34,6 +152,8 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
         }
 
     });
+
+    
 
     function CarregarDados(iCodigo, iCodigoEmpresa) {
         console.log("Função chamada preencherComboTipoParceiro");
@@ -57,18 +177,18 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                 return response.json();
             })
             .then(data => {
-                console.log(data); 
+                console.log(data);
 
                 if (data) {
                     const nomeInput = document.getElementById('nome');
                     if (nomeInput) {
                         nomeInput.value = data.nome;
-                    } 
+                    }
 
                     const txtNomeFantasia = document.getElementById('txtNomeFantasia');
                     if (txtNomeFantasia) {
                         txtNomeFantasia.value = data.nome_fantasia_parceiro || '';
-                    } 
+                    }
 
                     const txtRazaoSocial = document.getElementById('txtRazaoSocial');
                     if (txtRazaoSocial) {
@@ -78,12 +198,12 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                     const txtDocumento = document.getElementById('txtDocumento');
                     if (txtDocumento) {
                         txtDocumento.value = data.documento_parceiro || '';
-                    } 
+                    }
 
                     const txtCEP = document.getElementById('txtCEP');
                     if (txtCEP) {
                         txtCEP.value = data.cep_parceiro || '';
-                    } 
+                    }
 
                     const txtEmail = document.getElementById('txtEmail');
                     if (txtEmail) {
@@ -98,27 +218,27 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                     const txtBairro = document.getElementById('txtBairro');
                     if (txtBairro) {
                         txtBairro.value = data.bairro_parceiro || '';
-                    } 
+                    }
 
                     const txtLogradouro = document.getElementById('txtLogradouro');
                     if (txtLogradouro) {
                         txtLogradouro.value = data.logradouro_parceiro || '';
-                    } 
+                    }
 
                     const txtNumero = document.getElementById('txtNumero');
                     if (txtNumero) {
                         txtNumero.value = data.numero_parceiro || '';
-                    }  
+                    }
 
                     const txtComplemento = document.getElementById('txtComplemento');
                     if (txtComplemento) {
                         txtComplemento.value = data.complemento_parceiro || '';
-                    } 
+                    }
 
                     const txtContato = document.getElementById('txtContato');
                     if (txtContato) {
                         txtContato.value = data.contato_parceiro || '';
-                    } 
+                    }
 
                     const cidadeCombo = document.getElementById('cidadeCombo');
                     if (cidadeCombo) {
@@ -133,6 +253,16 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
                     const comboTipoParceiro = document.getElementById('comboTipoParceiro');
                     if (comboTipoParceiro) {
                         comboTipoParceiro.value = data.codigo_tipo_parceiro_parceiro || '';
+                    }
+
+                    const dtpData_ultima_alteracao = document.getElementById('dtpData_ultima_alteracao');
+                    if (dtpData_ultima_alteracao) {
+                        dtpData_ultima_alteracao.value = data.data_ultima_alteracao_parceiro || '';
+                    }
+
+                    const dtpData_cadastro = document.getElementById('dtpData_cadastro');
+                    if (dtpData_cadastro) {
+                        dtpData_cadastro.value = data.data_cadastro_parceiro || '';
                     }
 
                 } else {
@@ -300,113 +430,6 @@ if (isset($_GET['codigo']) && isset($_GET['codigo_empresa'])) {
             });
     };
 </script>
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Parceiro</title>
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-light">
-
-    <div class="container md-5">
-        <form action='/funcs/class/fnUpsertParceiro.php'>
-            <input type="hidden" name="codigo" value="<?php echo $codigo; ?>">
-            <input type="hidden" name="codigo_empresa" value="<?php echo $codigo_empresa; ?>">
-            <div class="row">
-                <div class="col-md-5">
-                    <label for="" class="form-label">Nome Fantasia</label>
-                    <input type="text" class="form-control" id="txtNomeFantasia" placeholder="Nome fantasia" required name="sNome_fantasia" value="<?php echo htmlspecialchars($codigo_empresa); ?>">
-                </div>
-                <div class="col-md-5">
-                    <label for="" class="form-label">Razão Social</label>
-                    <input type="text" class="form-control" id="txtRazaoSocial" placeholder="Razão Social" required name="sRazao_social">
-                </div>
-                <div class="col-md-2">
-                    <label for="" class="form-label">Tipo Parceiro</label>
-                    <select id="comboTipoParceiro" class="form-select" name="sTipo_parceiro">
-                        <option selected></option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="" class="form-label">Documento</label>
-                    <input type="text" class="form-control" id="txtDocumento" placeholder="Documento" name="sDocumento" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">E-Mail</label>
-                    <input type="email" class="form-control" id="txtEmail" placeholder="E-Mail" name="sEmail">
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">Telefone</label>
-                    <input type="text" class="form-control" id="txtTelefone" placeholder="Telefone" name="sTelefone">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="" class="form-label">Bairro</label>
-                    <input type="text" class="form-control" id="txtBairro" placeholder="Bairro" name="sBairro">
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">Logradouro</label>
-                    <input type="text" class="form-control" id="txtLogradouro" placeholder="Logradouro" name="sLogradouro">
-                </div>
-                <div class="col-md-1">
-                    <label for="" class="form-label">N°</label>
-                    <input type="text" class="form-control" id="txtNumero" placeholder="N°" name="sNumero">
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">Complemento</label>
-                    <input type="text" class="form-control" id="txtComplemento" placeholder="Complemento" name="sComplemento">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="" class="form-label">Cidade</label>
-                    <select id="cidadeCombo" class="form-select" name="iCodigo_cidade">
-                        <option selected></option>
-                        <option value="a">a</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="" class="form-label">Estado</label>
-                    <select id="estadoCombo" class="form-select" name="iCodigoEstado" onchange="atualizarCidades(this.value)">
-                        <option selected></option>
-                        <option value="a">a</option>
-                    </select>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="" class="form-label">CEP</label>
-                    <input type="text" class="form-control" id="txtCEP" name="sCep" placeholder="CEP">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="" class="form-label">Focal Point</label>
-                    <input type="text" class="form-control" id="txtContato" placeholder="Contato" name="sFocal_point">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="">Data Cadastro</label>
-                    <input id="" type="datetime-local" name="dtpData_cadastro" />
-                </div>
-                <div class="col-md-2">
-                    <label for="">Data Ultima Alteração</label>
-                    <input id="" type="datetime-local" name="dtpData_ultima_alteracao" readonly />
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success mt-3">Salvar!</button>
-
-        </form>
-        <button type="submit" class="btn btn-primary mt-3">Novo Parceiro</button>
-    </div>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
